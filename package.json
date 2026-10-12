@@ -1,0 +1,302 @@
+{
+  "name": "my-beloved",
+  "author": "CATEIN",
+  "version": "1.0.0",
+  "keywords": [
+    "pebble-app"
+  ],
+  "private": true,
+  "dependencies": {
+    "@rebble/clay": "^1.1.0"
+  },
+  "pebble": {
+    "displayName": "My Beloved",
+    "uuid": "60d3a2df-9659-4d56-93f1-245fb2539df6",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "emery",
+      "gabbro"
+    ],
+    "capabilities": [
+      "location",
+      "configurable"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "messageKeys": [
+      "TEMPERATURE",
+      "REQUEST_WEATHER",
+      "USE_CELSIUS",
+      "MESSAGE",
+      "PICTURE",
+      "PICTURE_OFFSET",
+      "PICTURE_DATA",
+      "REQUEST_PICTURE",
+      "SWAP_SIDES",
+      "OPEN_SECONDS"
+    ],
+    "resources": {
+      "media": [
+        {
+          "type": "bitmap",
+          "name": "MENU_ICON",
+          "file": "images/menu_icon.png",
+          "menuIcon": true
+        },
+        {
+          "type": "raw",
+          "name": "DEFAULT_PICTURE",
+          "file": "default_picture.bin"
+        },
+        {
+          "type": "raw",
+          "name": "FONT_ATLAS",
+          "file": "font_atlas.bin"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_00",
+          "file": "frames/f00.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_01",
+          "file": "frames/f01.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_02",
+          "file": "frames/f02.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_03",
+          "file": "frames/f03.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_04",
+          "file": "frames/f04.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_05",
+          "file": "frames/f05.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_06",
+          "file": "frames/f06.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_07",
+          "file": "frames/f07.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_08",
+          "file": "frames/f08.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_09",
+          "file": "frames/f09.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_10",
+          "file": "frames/f10.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_11",
+          "file": "frames/f11.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_12",
+          "file": "frames/f12.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_13",
+          "file": "frames/f13.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_14",
+          "file": "frames/f14.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_15",
+          "file": "frames/f15.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_16",
+          "file": "frames/f16.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_17",
+          "file": "frames/f17.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_18",
+          "file": "frames/f18.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_19",
+          "file": "frames/f19.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_20",
+          "file": "frames/f20.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_21",
+          "file": "frames/f21.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_22",
+          "file": "frames/f22.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_23",
+          "file": "frames/f23.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_24",
+          "file": "frames/f24.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_25",
+          "file": "frames/f25.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_26",
+          "file": "frames/f26.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_27",
+          "file": "frames/f27.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_28",
+          "file": "frames/f28.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_29",
+          "file": "frames/f29.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_30",
+          "file": "frames/f30.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_31",
+          "file": "frames/f31.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_32",
+          "file": "frames/f32.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        },
+        {
+          "type": "bitmap",
+          "name": "FRAME_33",
+          "file": "frames/f33.png",
+          "memoryFormat": "8Bit",
+          "storageFormat": "png"
+        }
+      ]
+    }
+  },
+  "devDependencies": {
+    "image-q": "^4.0.0"
+  }
+}

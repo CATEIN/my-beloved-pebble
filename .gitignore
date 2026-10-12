@@ -1,0 +1,8 @@
+# Pebble build output
+build/
+.lock-waf_*
+node_modules/
+.claude/
+
+# image previews from tools/make_locket.py --preview
+build-preview/
