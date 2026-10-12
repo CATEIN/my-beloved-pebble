@@ -1,27 +1,39 @@
 // Runs the settings page, sends the picture and message to the watch, and fetches the
 // current temperature from Open-Meteo (no API key needed).
 
-var Clay = require('@rebble/clay');
-var messageKeys = require('message_keys');
-var clayConfig = require('./config');
-var clay = new Clay(clayConfig, null, { autoHandleEvents: false });
-clay.registerComponent(require('./picture-picker'));
-clay.registerComponent(require('./textarea'));
+var settingsPage = require('./generated/settings_page');
 
 var PICTURE_CHUNK = 512;  // bytes per AppMessage, well under the watch's 1024 inbox
+var SETTINGS_KEY = 'settings';
 var SENT_PICTURE_KEY = 'sent-picture';
 
-// Clay keeps the saved settings here, keyed by message key name.
+// The saved settings: { message, picture, swapSides, openSeconds, celsius } (see
+// src/settings/settings.js). Missing ones are filled in by the page and the watch.
 function settings() {
   try {
-    return JSON.parse(localStorage.getItem('clay-settings')) || {};
+    var saved = JSON.parse(localStorage.getItem(SETTINGS_KEY));
+    if (saved) {
+      return saved;
+    }
+    // Saved by an older version, which used Clay.
+    var clay = JSON.parse(localStorage.getItem('clay-settings'));
+    if (clay) {
+      return {
+        message: clay.MESSAGE,
+        picture: clay.PICTURE || '',
+        swapSides: !!clay.SWAP_SIDES,
+        openSeconds: clay.OPEN_SECONDS,
+        celsius: !!clay.USE_CELSIUS
+      };
+    }
   } catch (e) {
-    return {};
+    console.log('Bad saved settings: ' + e);
   }
+  return {};
 }
 
 function temperatureUnit() {
-  return settings().USE_CELSIUS ? 'celsius' : 'fahrenheit';
+  return settings().celsius ? 'celsius' : 'fahrenheit';
 }
 
 function xhrJson(url, callback) {
@@ -129,23 +141,38 @@ Pebble.addEventListener('appmessage', function (e) {
     updateWeather();
   }
   if (e.payload.REQUEST_PICTURE) {
-    sendPicture(settings().PICTURE || '');
+    sendPicture(settings().picture || '');
   }
 });
 
 Pebble.addEventListener('showConfiguration', function () {
-  Pebble.openURL(clay.generateUrl());
+  // Escape '<' so nothing in the settings can end the page's <script> early.
+  var json = JSON.stringify(settings()).replace(/</g, '\\u003c');
+  var html = settingsPage.split('__SETTINGS__').join(json);
+  Pebble.openURL('data:text/html;charset=utf-8,' + encodeURIComponent(html));
 });
 
 Pebble.addEventListener('webviewclosed', function (e) {
   if (!e || !e.response) {
+    return;  // closed without saving
+  }
+  var s;
+  try {
+    s = JSON.parse(decodeURIComponent(e.response));
+  } catch (err) {
+    console.log('Bad settings from the page: ' + err);
     return;
   }
-  var dict = clay.getSettings(e.response);
-  // The picture goes separately, in chunks, and only when it changed.
-  var picture = settings().PICTURE || '';
-  delete dict[messageKeys.PICTURE];
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
 
+  var dict = {
+    MESSAGE: s.message,
+    SWAP_SIDES: s.swapSides ? 1 : 0,
+    OPEN_SECONDS: s.openSeconds,
+    USE_CELSIUS: s.celsius ? 1 : 0
+  };
+  // The picture goes separately, in chunks, and only when it changed.
+  var picture = s.picture || '';
   Pebble.sendAppMessage(dict, function () {
     // The unit may have changed, so refetch once the settings are through.
     updateWeather();

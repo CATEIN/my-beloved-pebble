@@ -29,6 +29,14 @@ Platforms: Pebble Time 2 (`emery`) and Pebble Round 2 (`gabbro`).
     pebble install --emulator emery
     pebble emu-tap --emulator emery     # flick
 
+## Settings page
+
+`src/settings/` is the settings page as plain HTML, CSS and JS; open `index.html` in a
+browser to work on it. The build (`wscript`) inlines its scripts and the default picture
+into one page (`src/pkjs/generated/settings_page.js`), which `src/pkjs/index.js` opens as
+a `data:` URL with the saved settings filled in. The picture encoder (`picture.js`) is
+shared with `tools/encode_picture.js`, which encodes the default picture.
+
 ## How the locket works
 
 `tools/make_locket.py` turns `assets/heart-locket.gif` (makesweet's 34-frame preview) into
@@ -53,7 +61,7 @@ To regenerate (needs Pillow, numpy, scipy and opencv-python-headless):
 
     python3 tools/make_locket.py --preview   # also encodes the default picture (needs node + npm install)
     python3 tools/make_font.py          # glyph atlas: resources/font_atlas.bin, src/c/font_data.h
-    node tools/vendor_image_q.js        # after npm install: src/pkjs/vendor/image-q.js
+    node tools/vendor_image_q.js        # after npm install: src/settings/vendor/image-q.js
 
 `--preview` simulates the watch's output with the default picture into `build-preview/`
 (an animated GIF and a contact sheet per platform). Screen placement of the locket is the
@@ -78,4 +86,4 @@ banner and screenshots. The screenshots come from the emulators with default set
   Wikimedia Commons; cropped, scaled and dithered for the watch (the result,
   `resources/default_picture.bin`, is CC BY-SA 3.0 too). See `assets/pebble-time-front.txt`.
 - Liberation Sans, by Red Hat / Google, SIL Open Font License 1.1 (`assets/fonts`).
-- image-q by Igor Bezkrovnyi, MIT License (bundled in `src/pkjs/vendor/image-q.js`).
+- image-q by Igor Bezkrovnyi, MIT License (bundled in `src/settings/vendor/image-q.js`).

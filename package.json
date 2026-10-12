@@ -6,9 +6,6 @@
     "pebble-app"
   ],
   "private": true,
-  "dependencies": {
-    "@rebble/clay": "^1.1.0"
-  },
   "pebble": {
     "displayName": "My Beloved",
     "uuid": "60d3a2df-9659-4d56-93f1-245fb2539df6",
