@@ -12,7 +12,7 @@ regenerate them with `python3 tools/make_store_assets.py`.
   - emery: `screenshots/emery-animation.gif`, `screenshots/emery-open.png`, `screenshots/emery-closed.png`
   - gabbro: `screenshots/gabbro-animation.gif`, `screenshots/gabbro-open.png`, `screenshots/gabbro-closed.png`
 - **Release:** `build/my-beloved.pbw` (version from package.json)
-- **Source code:** _(repo URL, once pushed)_
+- **Source code:** https://github.com/CATEIN/my-beloved-pebble
 - **Website:** _(optional)_
 
 ## Description (max 1600 characters)

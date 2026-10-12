@@ -87,3 +87,8 @@ banner and screenshots. The screenshots come from the emulators with default set
   `resources/default_picture.bin`, is CC BY-SA 3.0 too). See `assets/pebble-time-front.txt`.
 - Liberation Sans, by Red Hat / Google, SIL Open Font License 1.1 (`assets/fonts`).
 - image-q by Igor Bezkrovnyi, MIT License (bundled in `src/settings/vendor/image-q.js`).
+
+## License
+
+MIT (see `LICENSE`) for this project's own code and assets; the third-party parts above
+keep their own licenses.
