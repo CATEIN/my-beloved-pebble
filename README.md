@@ -6,8 +6,9 @@ swings open, frame for frame like the GIF, showing your picture and message insi
 open for a few seconds (3 by default), then closes again.
 
 The time is shown above the locket, the date (MM/DD) bottom left and the temperature bottom
-right. Weather comes from Open-Meteo (no API key) using the phone's location, falling back
-to IP-based location, and refreshes every 30 minutes.
+right. Weather comes from the Pebble app's built-in weather plugin for your location, so
+plugins must be turned on in the Pebble app (Settings -> Plugins). It updates whenever the
+plugin reports new conditions.
 
 Settings (in the Pebble app):
 - **Picture**: pick a photo or paste an image URL. The page crops it square, reduces it to

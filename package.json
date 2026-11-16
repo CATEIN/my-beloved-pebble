@@ -16,8 +16,13 @@
       "gabbro"
     ],
     "capabilities": [
-      "location",
       "configurable"
+    ],
+    "usesPermissions": [
+      {
+        "name": "Location",
+        "reason": "To show the temperature where you are"
+      }
     ],
     "watchapp": {
       "watchface": true

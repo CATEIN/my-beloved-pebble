@@ -34,7 +34,7 @@ Settings (in the Pebble app):
 - Temperature in Celsius or Fahrenheit.
 
 The time is shown above the locket, the date (MM/DD) bottom left and the current
-temperature bottom right (Open-Meteo, no account needed).
+temperature bottom right (from the Pebble app's weather; turn on plugins in its Settings).
 
 Credits: the locket animation is makesweet's Heart Locket by Paul Fitzpatrick
 (makesweet.com/my/heart-locket). Default picture: "Pebble Time front" by Frmorrison,
