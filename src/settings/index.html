@@ -105,11 +105,6 @@
   .ready .switch span, .ready .switch span::after { transition: background .15s, transform .15s; }
   .switch input:checked + span { background: var(--accent); }
   .switch input:checked + span::after { transform: translateX(20px); }
-  .segmented { display: flex; background: var(--field); border-radius: 9px; padding: 2px; flex: none; }
-  .segmented label { position: relative; }
-  .segmented input { position: absolute; opacity: 0; }
-  .segmented span { display: block; padding: 6px 14px; border-radius: 7px; font-size: 15px; color: var(--muted); }
-  .segmented input:checked + span { background: var(--card); color: var(--text); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.12); }
 
   footer { color: var(--muted); font-size: 12px; margin: 0 4px; }
   footer a { color: inherit; }
@@ -163,13 +158,6 @@
   <div class="slider">
     <div class="row"><span>Stays open</span><output id="seconds-label"></output></div>
     <input id="seconds" type="range" min="2" max="20" step="1">
-  </div>
-  <div class="row">
-    <span>Temperature</span>
-    <div class="segmented">
-      <label><input type="radio" name="unit" value="f"><span>°F</span></label>
-      <label><input type="radio" name="unit" value="c"><span>°C</span></label>
-    </div>
   </div>
 </div>
 

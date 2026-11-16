@@ -8,7 +8,7 @@ open for a few seconds (3 by default), then closes again.
 The time is shown above the locket, the date (MM/DD) bottom left and the temperature bottom
 right. Weather comes from the Pebble app's built-in weather plugin for your location, so
 plugins must be turned on in the Pebble app (Settings -> Plugins). It updates whenever the
-plugin reports new conditions.
+plugin reports new conditions, in the unit (°C or °F) set in the Pebble app.
 
 Settings (in the Pebble app):
 - **Picture**: pick a photo or paste an image URL. The page crops it square, reduces it to
@@ -18,7 +18,7 @@ Settings (in the Pebble app):
 - **Message**: default "pebble my beloved", in makesweet's font (Arial; here the metric-identical
   Liberation Sans). Line breaks work like on makesweet; without them, long messages wrap.
 - **Picture on the right**: swaps the picture and the message.
-- **Seconds to stay open**, and **Celsius / Fahrenheit**.
+- **Seconds to stay open**.
 
 The picture is stored on the watch, so it survives restarts without the phone.
 

@@ -1,8 +1,8 @@
 // Settings page logic. On Save it hands the settings back to src/pkjs/index.js as JSON:
-// { message, picture, swapSides, openSeconds, celsius }, where picture is the watch format
+// { message, picture, swapSides, openSeconds }, where picture is the watch format
 // (see picture.js) base64 encoded, or '' for the default picture.
 (function () {
-  var DEFAULTS = { message: 'pebble my beloved', picture: '', swapSides: false, openSeconds: 3, celsius: false };
+  var DEFAULTS = { message: 'pebble my beloved', picture: '', swapSides: false, openSeconds: 3 };
   var SIZE = picture.SIZE;
 
   function $(id) {
@@ -162,15 +162,12 @@
   seconds.addEventListener('input', updateSeconds);
   updateSeconds();
 
-  document.querySelector('input[name=unit][value=' + (state.celsius ? 'c' : 'f') + ']').checked = true;
-
   $('save').addEventListener('click', function () {
     var result = {
       message: message.value.trim() ? message.value : DEFAULTS.message,
       picture: state.picture,
       swapSides: $('swap').checked,
-      openSeconds: +seconds.value,
-      celsius: document.querySelector('input[name=unit]:checked').value === 'c'
+      openSeconds: +seconds.value
     };
     location.href = 'pebblejs://close#' + encodeURIComponent(JSON.stringify(result));
   });

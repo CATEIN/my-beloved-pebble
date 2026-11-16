@@ -31,10 +31,10 @@ Settings (in the Pebble app):
 - Message: up to 80 characters. Add line breaks where you want them, or let it wrap.
 - Picture on the left or the right.
 - How long the locket stays open (2-20 seconds, default 3).
-- Temperature in Celsius or Fahrenheit.
 
 The time is shown above the locket, the date (MM/DD) bottom left and the current
-temperature bottom right (from the Pebble app's weather; turn on plugins in its Settings).
+temperature bottom right, in °C or °F to match the Pebble app (from its weather; turn on
+plugins in its Settings).
 
 Credits: the locket animation is makesweet's Heart Locket by Paul Fitzpatrick
 (makesweet.com/my/heart-locket). Default picture: "Pebble Time front" by Frmorrison,

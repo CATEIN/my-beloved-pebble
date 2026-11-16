@@ -7,7 +7,7 @@ var PICTURE_CHUNK = 512;  // bytes per AppMessage, well under the watch's 1024 i
 var SETTINGS_KEY = 'settings';
 var SENT_PICTURE_KEY = 'sent-picture';
 
-// The saved settings: { message, picture, swapSides, openSeconds, celsius } (see
+// The saved settings: { message, picture, swapSides, openSeconds } (see
 // src/settings/settings.js). Missing ones are filled in by the page and the watch.
 function settings() {
   try {
@@ -22,8 +22,7 @@ function settings() {
         message: clay.MESSAGE,
         picture: clay.PICTURE || '',
         swapSides: !!clay.SWAP_SIDES,
-        openSeconds: clay.OPEN_SECONDS,
-        celsius: !!clay.USE_CELSIUS
+        openSeconds: clay.OPEN_SECONDS
       };
     }
   } catch (e) {
@@ -33,23 +32,65 @@ function settings() {
 }
 
 // The latest temperature from the weather plugin: { value, celsius }, or null until one
-// arrives. The plugin reports in the phone's unit, which can differ from the watch's.
+// arrives.
 var lastTemperature = null;
+// The temperature unit chosen in the Pebble app (true for Celsius), or null until known.
+var phoneCelsius = null;
 
+// Sends the temperature in the Pebble app's unit, along with that unit for the watch to show.
 function sendTemperature() {
   if (!lastTemperature) {
     return;
   }
   var t = lastTemperature.value;
-  var wantCelsius = !!settings().celsius;
-  if (lastTemperature.celsius && !wantCelsius) {
+  var celsius = phoneCelsius !== null ? phoneCelsius : lastTemperature.celsius;
+  if (lastTemperature.celsius && !celsius) {
     t = t * 9 / 5 + 32;
-  } else if (!lastTemperature.celsius && wantCelsius) {
+  } else if (!lastTemperature.celsius && celsius) {
     t = (t - 32) * 5 / 9;
   }
   t = Math.round(t);
-  console.log('Temperature: ' + t);
-  Pebble.sendAppMessage({ TEMPERATURE: t });
+  console.log('Temperature: ' + t + (celsius ? ' C' : ' F'));
+  Pebble.sendAppMessage({ TEMPERATURE: t, USE_CELSIUS: celsius ? 1 : 0 });
+}
+
+// The first instance's value of a property, or null. Sources can leave anything out.
+function firstProperty(e, name) {
+  var here = e && e.instances && e.instances[0];
+  return (here && here.properties && here.properties[name]) || null;
+}
+
+// Whether a unit property ('\u00b0C' / '\u00b0F', as text or a value) means Celsius, or null.
+function isCelsiusUnit(prop) {
+  var text = prop && ((prop.shortText && prop.shortText.text) ||
+    (prop.longText && prop.longText.text) || prop.value);
+  if (typeof text !== 'string') {
+    return null;
+  }
+  if (text.indexOf('F') >= 0) {
+    return false;
+  }
+  return text.indexOf('C') >= 0 ? true : null;
+}
+
+// Follows the temperature unit set in the Pebble app (no permission needed).
+function subscribeToUnits() {
+  Pebble.subscribeToSource({
+    category: 'preferences',
+    item: 'units',
+    properties: ['temperature'],
+    onData: function (e) {
+      var celsius = isCelsiusUnit(firstProperty(e, 'temperature'));
+      if (celsius === null || celsius === phoneCelsius) {
+        return;
+      }
+      phoneCelsius = celsius;
+      sendTemperature();
+    },
+    onError: function (err) {
+      console.log('Units error: ' + err.code + ' ' + err.message);
+    }
+  });
 }
 
 // Subscribes to the Pebble app's built-in weather source, which pushes the current
@@ -60,13 +101,13 @@ function subscribeToWeather() {
     console.log('This Pebble app has no weather plugin support');
     return;
   }
+  subscribeToUnits();
   Pebble.subscribeToSource({
     category: 'weather',
     item: 'location',
     properties: ['temperature'],
     onData: function (e) {
-      var here = e && e.instances && e.instances[0];
-      var temp = here && here.properties && here.properties.temperature;
+      var temp = firstProperty(e, 'temperature');
       var n = temp && temp.numericValue;
       if (!n || typeof n.value !== 'number') {
         return;  // the plugin can't serve a temperature right now
@@ -163,14 +204,11 @@ Pebble.addEventListener('webviewclosed', function (e) {
   var dict = {
     MESSAGE: s.message,
     SWAP_SIDES: s.swapSides ? 1 : 0,
-    OPEN_SECONDS: s.openSeconds,
-    USE_CELSIUS: s.celsius ? 1 : 0
+    OPEN_SECONDS: s.openSeconds
   };
   // The picture goes separately, in chunks, and only when it changed.
   var picture = s.picture || '';
   Pebble.sendAppMessage(dict, function () {
-    // The unit may have changed, so resend once the settings are through.
-    sendTemperature();
     if (localStorage.getItem(SENT_PICTURE_KEY) !== picture) {
       sendPicture(picture, function () {
         localStorage.setItem(SENT_PICTURE_KEY, picture);
